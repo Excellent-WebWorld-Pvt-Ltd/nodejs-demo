@@ -1,0 +1,119 @@
+<%- include('../../partials/header') %>
+
+<link href="/admin/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/admin//assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+<link href="/admin//assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <%- include('../../partials/topbar-light') %>
+
+            <%- include('../../partials/left-sidebar') %>
+
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                                            <li class="breadcrumb-item"><a href="/admin/users"><%= title %></a></li>
+                                            <li class="breadcrumb-item active">Edit</li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title"><%= title %></h4>
+                                </div>
+                            </div>
+                        </div>     
+                        <!-- end page title --> 
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                            <% if (locals.success_msg && locals.success_msg.length > 0) { %>
+                                 <div class="alert alert-success"><%= locals.success_msg[0] %></div>
+                            <% } %>
+
+                            <% if (locals.error_msg && locals.error_msg.length > 0) { %>
+                                <div class="alert alert-danger"><%= locals.error_msg[0] %></div>
+                            <% } %>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Edit User</h4>
+                                       
+                                        <form enctype="multipart/form-data" method="POST" action="/admin/user/update">
+                                            <input type="hidden" name="id" value="<%= user_data.id %>">
+                                            <div class="form-group">
+                                                <label for="fullname">Name</label>
+                                                <input type="text" class="form-control" name="name" id="fullname" value="<%= user_data.name %>" required="">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" id="email" class="form-control" name="email"
+                                                        data-parsley-trigger="change" required="" value="<%= user_data.email %>">
+                                            </div>
+                                             <div class="form-group mb-0">
+                                                <label>Profile picture</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <%# <input type="file" name="image" class="custom-file-input" id="inputGroupFile04" accept="image/png, image/jpeg">
+                                                        <label class="custom-file-label" for="inputGroupFile04">Choose file</label> %>
+
+                                                        <input type="file" name="image" class="" id="" accept="image/png, image/jpeg">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div><br />
+                                           
+                                            
+                                            <div class="form-group mb-0">
+                                                <input type="submit" class="btn btn-success" value="Update">
+                                            </div>
+                                        </form>
+
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+                            </div> <!-- end col-->
+
+
+                           
+                        </div>
+                        
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+
+                
+                <%- include('../../partials/footer') %>
+            </div>
+
+        </div>
+        <!-- END wrapper -->
+
+        <!-- Vendor js -->
+        <script src="/admin/assets/js/vendor.min.js"></script>
+
+         <!-- Plugin js-->
+        <script src="/admin/assets/libs/parsleyjs/parsley.min.js"></script>
+
+        <!-- Validation init js-->
+       <script>
+           $("form").parsley();
+       </script>
+
+        <!-- App js -->
+        <script src="/admin/assets/js/app.min.js"></script>
+        
+    </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Node-demo@2k25*",
+    "database": "mvc_demo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Node-demo@2k25*",
+    "database": "mvc_demo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "Node-demo@2k25*",
+    "database": "mvc_demo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

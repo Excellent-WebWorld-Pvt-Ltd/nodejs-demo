@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
+    "firebase-admin": "^13.4.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "multer": "^2.0.1",
+    "mysql2": "^3.14.1",
+    "nodemailer": "^7.0.3",
+    "path": "^0.12.7",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "jest": "^30.0.0",
+    "mocha": "^11.6.0",
+    "sequelize-cli": "^6.6.3",
+    "supertest": "^7.1.1"
+  },
+  "scripts": {
+    "test": "jest --detectOpenHandles --forceExit"
+  }
+}
