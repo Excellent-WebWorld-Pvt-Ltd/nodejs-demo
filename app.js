@@ -6,7 +6,7 @@ const passport = require('passport');
 dotenv.config();
 
 const sequelize = require('./config/db');
-const configureApp = require('./config/config');
+const configureApp = require('./config/appConfig');
 
 // Import Routes
 const adminRoutes = require('./routes/adminRoutes');

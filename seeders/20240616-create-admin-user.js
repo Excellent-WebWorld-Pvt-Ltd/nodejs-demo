@@ -7,7 +7,7 @@ module.exports = {
 
     return queryInterface.bulkInsert('users', [{
       name: 'Admin User',
-      email: 'admin.user@yopmail.com',
+      email: 'admin.user1@yopmail.com',
       password: hashedPassword,
       role: 'admin',
       status: 1,
@@ -20,6 +20,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('users', { email: 'admin.user@yopmail.com' }, {});
+    return queryInterface.bulkDelete('users', { email: 'admin.user1@yopmail.com' }, {});
   }
 };
