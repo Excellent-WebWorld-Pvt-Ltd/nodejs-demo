@@ -3,7 +3,7 @@ const passport = require('passport');
 
 class AuthController {
   static login(req, res) {
-    res.render('admin/login', {
+    res.render('vendor/login', {
       errors: {},
       error: null,
       oldInput: { email: '' }
@@ -19,18 +19,18 @@ class AuthController {
         errorObj[err.path] = err.msg;
       });
 
-      return res.render('admin/login', {
+      return res.render('vendor/login', {
         errors: errorObj,
         error: null,
         oldInput: { email: req.body.email }
       });
     }
 
-    req.body.role = 'admin';
+    req.body.role = 'vendor';
     passport.authenticate('local', (err, user, info) => {
       if (err) return next(err);
       if (!user) {
-        return res.render('admin/login', {
+        return res.render('vendor/login', {
           errors: {},
           error: info.message,
           oldInput: { email: req.body.email }
@@ -39,9 +39,9 @@ class AuthController {
 
       req.logIn(user, (err) => {
         if (err) return next(err);
-        req.session.admin = user; // Optional, for convenience
+        req.session.vendor = user; // Optional, for convenience
         req.flash('success_msg', 'Login Successfully!');
-        return res.redirect('/admin/dashboard');
+        return res.redirect('/vendor/dashboard');
       });
     })(req, res, next);
   }
@@ -49,7 +49,7 @@ class AuthController {
   static logout(req, res, next) {
     req.logout(err => {
       if (err) return next(err);
-      req.session.destroy(() => res.redirect('/admin/login'));
+      req.session.destroy(() => res.redirect('/vendor/login'));
     });
   }
 }

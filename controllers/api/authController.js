@@ -80,6 +80,7 @@ class ApiController {
   }
 
   static async login(req, res) {
+
     try {
       const body = req.body || {};
       const { email, password, token } = req.body || {};
@@ -90,7 +91,7 @@ class ApiController {
         return res.error(error);
       }
 
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({ where: { email ,role: 'user'} });
 
       if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.error('Invalid credentials');
@@ -106,7 +107,7 @@ class ApiController {
         const push_title = 'Welcome Back!'; 
         const push_body = 'Thank you for logging in!';
         const data = { key1: 'value1', key2: 'value2' };
-        sendPush(token, push_title, push_body, data);
+        //sendPush(token, push_title, push_body, data);
         
         user.token = token;
         await user.save();
@@ -114,6 +115,7 @@ class ApiController {
 
       return res.success({jwtToken, user} , 'Logged in successfully');
     } catch (error) {
+      //console.log('Login error:', error);
       return res.error('Internal server error');
     }
   }

@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <%- include('../partials/topbar-light') %>
+
+            <%- include('../partials/left-sidebar') %>
+
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Excellent Web World</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                                            <li class="breadcrumb-item active"><%= title %></li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title"><%= title %></h4>
+                                </div>
+                            </div>
+                        </div>     
+                        <!-- end page title --> 
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <% if (locals.success_msg && locals.success_msg.length > 0) { %>
+                                     <div class="alert alert-success"><%= locals.success_msg[0] %></div>
+                                <% } %>
+
+                                <% if (locals.error_msg && locals.error_msg.length > 0) { %>
+                                    <div class="alert alert-success"><%= locals.error_msg[0] %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+
+                
+                <%- include('../partials/footer') %>
+            </div>
+
+        </div>
+        <!-- END wrapper -->
+
+        <!-- Vendor js -->
+        <script src="/admin/assets/js/vendor.min.js"></script>
+
+        <!-- App js -->
+        <script src="/admin/assets/js/app.min.js"></script>
+        
+    </body>
+</html>
