@@ -15,7 +15,7 @@
 
 4. Start the project:
 
-   npm start
+   npm run dev or npm run watch
 
 ## Admin Panel Login Details
 
