@@ -26,15 +26,15 @@ const configureApp = (app) => {
                 return req.headers['accept-language']?.split(',')[0] || 'en';
             } 
             // For Admin routes: detect via session or cookie
-            else if (req.originalUrl.startsWith('/admin')) {
-                return req.session.lng || req.cookies.lng || 'en';
+            else if (req.originalUrl.startsWith('/admin') || req.originalUrl.startsWith('/vendor')) {
+                return req.session.lng || 'en';
             }
             // Fallback
             return 'en';
         },
         cacheUserLanguage(req, res, lng, options) {
             // Cache language in session only for admin
-            if (req.originalUrl.startsWith('/admin')) {
+            if (req.originalUrl.startsWith('/admin') || req.originalUrl.startsWith('/vendor')) {
                 req.session.lng = lng;
             }
         }
