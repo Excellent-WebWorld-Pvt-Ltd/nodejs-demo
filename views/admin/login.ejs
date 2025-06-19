@@ -24,14 +24,24 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
                         <div class="card bg-pattern">
+                            <br/>
 
+                            <a href="/admin/changeLanguage?lng=<%= lng == 'en' || lng == 'en-US' ? 'fr' : 'en' %>" class="btn btn-light btn-block waves-effect waves-light">
+                                <% if (lng == 'en' || lng == 'en-US') { %>
+                                    <b>&nbsp;&nbsp;Switch to French</b>
+                                <% } else { %>
+                                    <b>&nbsp;&nbsp;Switch to English</b>
+                                <% } %>
+
+                            </a>
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
+                                    
                                     <a href="#">
                                         <span><img src="/admin/assets/images/eww.png" alt="" height="22"></span>
                                     </a>
-                                    <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p>
+                                    <p class="text-muted mb-4 mt-3"><%= t('Enter your email address and password to access admin panel.') %></p>
                                 </div>
 
                                 <% if (typeof error !== 'undefined') { %>
@@ -39,25 +49,25 @@
                                 <% } %>
 
                                 <form action="/admin/login" method="post">
-
+                                    <input type="hidden" name="lng" value="<%= lng %>">
                                     <div class="form-group mb-3">
-                                        <label for="emailaddress">Email address</label>
-                                        <input class="form-control" type="email" id="emailaddress" required="" name="email" value="<%= oldInput ? oldInput.email : '' %>" placeholder="Enter your email">
+                                        <label for="emailaddress"><%= t('Email') %></label>
+                                        <input class="form-control" type="email" id="emailaddress" required="" name="email" value="<%= oldInput ? oldInput.email : '' %>" placeholder="<%= t('Enter your email') %>">
                                         <% if (errors && errors.email) { %>
                                             <p style="color:red;"><%= errors.email %></p>
                                         <% } %>
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="password">Password</label>
-                                        <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password">
+                                        <label for="password"><%= t('Password') %></label>
+                                        <input class="form-control" type="password" required="" id="password" name="password" placeholder="<%= t('Enter your password') %>">
                                          <% if (errors && errors.password) { %>
                                             <p style="color:red;"><%= errors.password %></p>
                                         <% } %>
                                     </div>
 
                                     <div class="form-group mb-0 text-center">
-                                        <button class="btn btn-primary btn-block" type="submit"> Log In </button>
+                                        <button class="btn btn-primary btn-block" type="submit"><%= t('Login') %></button>
                                     </div>
 
                                 </form>

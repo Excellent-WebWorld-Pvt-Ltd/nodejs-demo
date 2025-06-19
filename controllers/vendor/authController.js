@@ -6,7 +6,9 @@ class AuthController {
     res.render('vendor/login', {
       errors: {},
       error: null,
-      oldInput: { email: '' }
+      oldInput: { email: '' },
+      t: req.t,
+      lng: req.session.lng || 'en'
     });
   }
 
@@ -22,7 +24,9 @@ class AuthController {
       return res.render('vendor/login', {
         errors: errorObj,
         error: null,
-        oldInput: { email: req.body.email }
+        oldInput: { email: req.body.email },
+        t: req.t,
+        lng: req.session.lng || 'en'
       });
     }
 
@@ -33,14 +37,21 @@ class AuthController {
         return res.render('vendor/login', {
           errors: {},
           error: info.message,
-          oldInput: { email: req.body.email }
+          oldInput: { email: req.body.email },
+           t: req.t,
+           lng: req.session.lng || 'en'
         });
       }
 
       req.logIn(user, (err) => {
         if (err) return next(err);
         req.session.vendor = user; // Optional, for convenience
-        req.flash('success_msg', 'Login Successfully!');
+        if(req.body.lng == 'en-Us')
+        {
+          req.body.lng = 'en';
+        }
+        req.session.lng = req.body.lng || 'en'; // Set default language if not specified
+        req.flash('success_msg', req.t('Login Successfully!'));
         return res.redirect('/vendor/dashboard');
       });
     })(req, res, next);

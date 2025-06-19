@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/vendor/authController');
 const dashboardController = require('../controllers/vendor/dashboardController');
-const commonController = require('../controllers/vendor/commonController');
+const commonController = require('../controllers/commonController');
 const { ensureVendorAuthenticated, verifyToken } = require('../middlewares/authMiddleware');
 const { loginValidationRules } = require('../middlewares/validators');
 
@@ -14,9 +14,9 @@ router.get('/logout', authController.logout);
 //Dashboard Routes
 router.get('/dashboard', ensureVendorAuthenticated, dashboardController.index);
 
-
 //Common Operation Routes
 router.get('/deleteRecord', ensureVendorAuthenticated, commonController.deleteRecord);
 router.get('/changeStatus', ensureVendorAuthenticated, commonController.changeStatus);
+router.get('/changeLanguage', commonController.changeLanguage);
 
 module.exports = router;

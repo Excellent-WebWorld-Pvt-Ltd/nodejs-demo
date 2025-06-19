@@ -3,11 +3,11 @@ const { body } = require('express-validator');
 const loginValidationRules = [
   body('email')
     .isEmail()
-    .withMessage('Please enter a valid email'),
+    .withMessage((value, { req }) => req.t('Please enter a valid email')),
 
   body('password')
     .isLength({ min: 6 })
-    .withMessage('Password length should be at least 6 characters')
+    .withMessage((value, { req }) => req.t('Password length should be at least 6 characters'))
 ];
 
 module.exports = { loginValidationRules };

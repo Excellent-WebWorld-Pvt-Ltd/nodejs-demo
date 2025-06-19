@@ -24,6 +24,7 @@ app.use('/vendor', vendorRoutes);
 app.use('/api', apiRoutes);
 
 app.use((req, res) => {
+    console.log(req.t('welcome'));
     res.status(404).render('404');
 });
 
@@ -35,6 +36,7 @@ app.get('/', (req, res) => {
 sequelize.sync().then(() => {
     app.listen(process.env.PORT, () => 
         console.log('Server started on http://localhost:' + process.env.PORT)
+        
     );
 });
 

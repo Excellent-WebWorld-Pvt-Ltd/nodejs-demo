@@ -9,7 +9,7 @@ class UserController
 {
   static users(req, res) 
   {
-    renderPage(res, 'users/index', { user: req.session.admin, title:'Users' });
+    renderPage(res, req, 'users/index', { user: req.session.admin, title: req.t('Users') });
   }
 
   static async getUsers(req, res) 
@@ -27,14 +27,14 @@ class UserController
         const user_data = await User.findByPk(req.params.id);
         if (!user_data) 
         {
-            req.flash('error_msg', 'User not found');
+            req.flash('error_msg', req.t('User not found'));
             res.redirect('/admin/users');
         }
-        renderPage(res,'users/edit', {user: req.session.admin, title:'Users',user_data:user_data});
+        renderPage(res, req, 'users/edit', {user: req.session.admin, title:req.t('Users'),user_data:user_data});
       } 
       catch (error) 
       {
-        req.flash('error_msg', 'User not found');
+        req.flash('error_msg', req.t('User not found'));
         res.redirect('/admin/users');
       }
     }
@@ -65,7 +65,7 @@ class UserController
 
       if (!user) 
       {
-        req.flash('error_msg', 'User not found');
+        req.flash('error_msg', req.t('User not found'));
         return res.redirect('/admin/users');
       }
 
@@ -79,7 +79,7 @@ class UserController
       // Email uniqueness validation
       const existingUser = await User.findOne({ where: { email } });
       if (existingUser && existingUser.id != user.id) {
-        req.flash('error_msg', 'Email already exists!');
+        req.flash('error_msg', req.t('Email already exists!'));
         return res.redirect(backURL);
       }
 
@@ -88,7 +88,7 @@ class UserController
       user.image = image;
 
       await user.save();
-      req.flash('success_msg', 'User updated Successfully!');
+      req.flash('success_msg', req.t('User updated Successfully!'));
       res.redirect('/admin/users');
     } 
     catch (error) 
@@ -101,13 +101,13 @@ class UserController
       } 
       else if (error.name === 'SequelizeUniqueConstraintError') 
       {
-        req.flash('error_msg', 'Email already exists!');
+        req.flash('error_msg', req.t('Email already exists!'));
         res.redirect(backURL);
       } 
       else 
       {
         console.error('Unknown error:', error);
-        req.flash('error_msg', 'An unexpected error occurred.');
+        req.flash('error_msg', req.t('An unexpected error occurred.'));
         res.redirect(backURL);
       }
     }

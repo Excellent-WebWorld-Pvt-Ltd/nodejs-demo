@@ -6,7 +6,7 @@ class DashboardController
 {
   static index(req, res) 
   {
-    renderPage(res, 'dashboard', { user: req.session.admin, title:'Dashboard' });
+    renderPage(res, req, 'dashboard', { user: req.session.admin, title: req.t('Dashboard') });
   }
 }
 

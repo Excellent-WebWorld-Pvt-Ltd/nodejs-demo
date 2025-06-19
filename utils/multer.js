@@ -30,7 +30,7 @@ const fileFilter = function (req, file, cb) {
   if (extName && mimeType) {
     cb(null, true);
   } else {
-    cb(new Error('Only image files (jpeg, jpg, png, gif) are allowed'));
+    cb(new Error(req.t('Only image files (jpeg, jpg, png, gif) are allowed')));
   }
 };
 

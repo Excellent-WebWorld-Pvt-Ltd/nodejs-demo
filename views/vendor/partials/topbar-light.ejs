@@ -2,6 +2,7 @@
 <div class="navbar-custom navbar-custom-light">
     <ul class="list-unstyled topnav-menu float-right mb-0">
         <li class="dropdown notification-list">
+            
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <%# <img src="assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle"> %>
                 <span class="pro-user-name ml-1">
@@ -11,13 +12,25 @@
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
                 <div class="dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Welcome !</h6>
+                    <h6 class="text-overflow m-0"><%= t('Welcome') %></h6>
                 </div>
+
+                <!-- item-->
+                <a href="/vendor/changeLanguage?lng=<%= lng == 'en' || lng == 'en-US' ? 'fr' : 'en' %>" class="dropdown-item notify-item">
+                    <i class="fe-refresh-ccw"></i>
+                    <span>
+                        <% if (lng == 'en' || lng == 'en-US') { %>
+                            <b>Switch to French</b>
+                        <% } else { %>
+                            <b>Switch to English</b>
+                        <% } %>
+                    </span>
+                </a>
 
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="fe-user"></i>
-                    <span>My Account</span>
+                    <span><%= t('My Account') %></span>
                 </a>
 
                 <div class="dropdown-divider"></div>
@@ -25,7 +38,7 @@
                 <!-- item-->
                 <a href="/vendor/logout" class="dropdown-item notify-item">
                     <i class="fe-log-out"></i>
-                    <span>Logout</span>
+                    <span><%= t('Logout') %></span>
                 </a>
 
             </div>

@@ -23,9 +23,9 @@ class ApiController {
         return res.error(error);
       }
 
-      const existingUser = await User.findOne({ where: { email } });
+      const existingUser = await User.findOne({ where: { email: email } });
       if (existingUser) {
-        return res.error('Email already in use');
+        return res.error(req.t('Email already in use'));
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -54,10 +54,10 @@ class ApiController {
         { expiresIn: '1y' }
       );
 
-      return res.success({ token: jwtToken, user: newUser }, 'User registered successfully');
+      return res.success({ token: jwtToken, user: newUser }, req.t('User registered successfully'));
     } catch (error) {
       console.error('Register error:', error);
-      return res.error('Internal server error');
+      return res.error(req.t('Internal server error'));
     }
   }
 
@@ -68,14 +68,14 @@ class ApiController {
       if (req.file) 
       {
         image = req.file.path.replace(process.env.REPLACE_FILE_PATH, "admin");
-        return res.success(image, 'Image uploaded successfully');
+        return res.success(image, req.t('Image uploaded successfully'));
       }
       else
       {
-        return res.error('Image uploading failed');
+        return res.error(req.t('Image uploading failed'));
       }
     } catch (error) {
-      return res.error('Internal server error');
+      return res.error(req.t('Internal server error'));
     }
   }
 
@@ -94,7 +94,7 @@ class ApiController {
       const user = await User.findOne({ where: { email ,role: 'user'} });
 
       if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.error('Invalid credentials');
+        return res.error(req.t('Invalid credentials'));
       }
 
       const jwtToken = jwt.sign(
@@ -104,8 +104,8 @@ class ApiController {
       );
 
       if(token && token !== 'undefined' && token !== 'null') { 
-        const push_title = 'Welcome Back!'; 
-        const push_body = 'Thank you for logging in!';
+        const push_title = req.t('Welcome Back!'); 
+        const push_body = req.t('Thank you for logging in!');
         const data = { key1: 'value1', key2: 'value2' };
         //sendPush(token, push_title, push_body, data);
         
@@ -113,10 +113,10 @@ class ApiController {
         await user.save();
       }
 
-      return res.success({jwtToken, user} , 'Logged in successfully');
+      return res.success({jwtToken, user} , req.t('Logged in successfully'));
     } catch (error) {
       //console.log('Login error:', error);
-      return res.error('Internal server error');
+      return res.error(req.t('Internal server error'));
     }
   }
 
@@ -127,13 +127,13 @@ class ApiController {
       });
 
       if (!user) {
-        return res.error('User not found');
+        return res.error(req.t('User not found'));
       }
 
       //return res.success({user:user}, 'Profile fetched successfully');
-      return res.success(user, 'Profile fetched successfully');
+      return res.success(user, req.t('Profile fetched successfully'));
     } catch (error) {
-      return res.error('Internal server error');
+      return res.error(req.t('Internal server error'));
     }
   }
 
@@ -141,20 +141,20 @@ class ApiController {
     try {
       const authHeader = req.headers['authorization'];
       const token = authHeader && authHeader.split(' ')[1];
-      if (!token) return res.error('Token required');
+      if (!token) return res.error(req.t('Token required'));
 
       const decoded = jwt.decode(token);
-      if (!decoded) return res.error('Invalid token');
+      if (!decoded) return res.error(req.t('Invalid token'));
 
       await TokenBlacklist.create({
         token: token,
         expiresAt: new Date(decoded.exp * 1000) // 'exp' is in seconds
       });
 
-      return res.success({}, 'Logged out successfully');
+      return res.success({}, req.t('Logged out successfully'));
     } catch (error) {
       console.error('Logout error:', error);
-      return res.error('Internal server error');
+      return res.error(req.t('Internal server error'));
     }
   }
 

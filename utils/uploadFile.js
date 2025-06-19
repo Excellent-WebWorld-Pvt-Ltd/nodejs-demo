@@ -10,13 +10,13 @@ const handleFileUpload = (req, res, filename) => {
         // Known Multer error (like file too big)
         return reject({
           status: 400,
-          message: err.code === 'LIMIT_FILE_SIZE' ? 'File is too large. Max size is 2MB.' : err.message
+          message: err.code === 'LIMIT_FILE_SIZE' ? req.t('File is too large. Max size is 2MB.') : err.message
         });
       } else if (err) {
         // Unknown error
         return reject({
           status: 400,
-          message: err.message
+          message: req.t(err.message)
         });
       }
       // No error — success

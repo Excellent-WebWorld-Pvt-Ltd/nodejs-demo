@@ -4,7 +4,7 @@ class DashboardController
 {
   static index(req, res) 
   {
-    renderVendor(res, 'dashboard', { user: req.session.vendor, title:'Vendor Dashboard' });
+    renderVendor(res, req, 'dashboard', { user: req.session.vendor, title: req.t('Vendor Dashboard') });
   }
 }
 

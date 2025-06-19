@@ -1,5 +1,5 @@
 const models = require('../models');
-const deleteRecord = async (modelName, id, force = false) => {
+const deleteRecord = async (req, modelName, id, force = false) => {
   try {
     
     const Model = models[modelName]; // dynamic model
@@ -8,14 +8,14 @@ const deleteRecord = async (modelName, id, force = false) => {
     const record = await Model.findByPk(id);
     console.log(record)
     if (!record) {
-      return { success: false, message: 'Record not found.' };
+      return { success: false, message: req.t('Record not found') };
     }
 
     await record.destroy({ force }); // force: true for hard delete
-    return { success: true, message: 'Record deleted successfully.' };
+    return { success: true, message: req.t('Record deleted successfully') };
   } catch (error) {
     console.error('Delete Record Error:', error);
-    return { success: false, message: 'Failed to delete record.' };
+    return { success: false, message: req.t('Failed to delete record') };
   }
 };
 

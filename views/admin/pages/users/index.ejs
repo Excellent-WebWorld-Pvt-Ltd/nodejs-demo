@@ -26,9 +26,9 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                                            <li class="breadcrumb-item"><a href="/admin/dashboard"><%= t('Dashboard') %></a></li>
                                             <li class="breadcrumb-item"><a href="javascript: void(0);"><%= title %></a></li>
-                                            <li class="breadcrumb-item active">List</li>
+                                            <li class="breadcrumb-item active"><%= t('List') %></li>
                                         </ol>
                                     </div>
                                     <h4 class="page-title"><%= title %></h4>
@@ -53,13 +53,13 @@
                                         <table id="dynamic-datatable" class="table dt-responsive nowrap">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Created At</th>
-                                                    <th>Action</th>
-                                                    
+                                                    <th><%= t('Id') %></th>
+                                                    <th><%= t('Name') %></th>
+                                                    <th><%= t('Email') %></th>
+                                                    <th><%= t('Role') %></th>
+                                                    <th><%= t('Created At') %></th>
+                                                    <th><%= t('Action') %></th>
+
                                                 </tr>
                                             </thead>
                                         
@@ -110,10 +110,23 @@
          <script>
 
             $(document).ready(function () {
+              var languageOptions = {};
+
+                if (lng === 'fr') {
+                    languageOptions = {
+                        url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json" // French CDN
+                    };
+                } else {
+                    languageOptions = {
+                        // url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/en-GB.json"
+                    };
+                }
+
               $('#dynamic-datatable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '/admin/getUsers',
+                language: languageOptions,
                 columns: [
                   { data: 'id' },
                   { data: 'name' },
@@ -126,15 +139,20 @@
                         searchable: false,
                         render: function (data, type, row) {
                             var action = '';
-                            action = `<a href="/admin/user/edit/${row.id}" class="btn btn-sm btn-primary">Edit</a>&nbsp;&nbsp;`;
-                            action += `<button class="btn btn-sm btn-danger" onclick="deleteRecord('User', ${row.id})">Delete</button>&nbsp;&nbsp;`;
+                            var edit_label = '<%= t('Edit') %>';
+                            var delete_label = '<%= t('Delete') %>';
+                            var edit_label = '<%= t('Edit') %>';
+                            var active_label = '<%= t('Active') %>';
+                            var inactive_label = '<%= t('Inactive') %>';
+                            action = `<a href="/admin/user/edit/${row.id}" class="btn btn-sm btn-primary">${edit_label}</a>&nbsp;&nbsp;`;
+                            action += `<button class="btn btn-sm btn-danger" onclick="deleteRecord('User', ${row.id}, '${lng}')">${delete_label}</button>&nbsp;&nbsp;`;
                             if(row.status == '1')
                             {
-                                action += `<button class="btn btn-sm btn-success" onclick="changeStatus('User', ${row.id},'0')">Active</button>&nbsp;&nbsp;`;
+                                action += `<button class="btn btn-sm btn-success" onclick="changeStatus('User', ${row.id},'0', '${lng}')">${active_label}</button>&nbsp;&nbsp;`;
                             }
                             else
                             {
-                                action += `<button class="btn btn-sm btn-danger" onclick="changeStatus('User', ${row.id}, '1')">Inactive</button>&nbsp;&nbsp;`;    
+                                action += `<button class="btn btn-sm btn-danger" onclick="changeStatus('User', ${row.id}, '1', '${lng}')">${inactive_label}</button>&nbsp;&nbsp;`;    
                             }
                                 
                             return action;

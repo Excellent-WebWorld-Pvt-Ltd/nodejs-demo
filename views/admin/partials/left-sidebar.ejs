@@ -8,12 +8,12 @@
 
             <ul class="metismenu" id="side-menu">
 
-                <li class="menu-title">Navigation</li>
+                <li class="menu-title"><%= t('Navigation') %></li>
 
                 <li>
                     <a href="/admin/dashboard">
                         <i class="fe-airplay"></i>
-                        <span> Dashboard </span>
+                        <span><%= t('Dashboard') %></span>
                     </a>
                     
                 </li>
@@ -21,15 +21,15 @@
                 <li>
                     <a href="javascript: void(0);">
                         <i class="fe-users"></i>
-                        <span> Users </span>
+                        <span><%= t('Users') %></span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li>
-                            <a href="/admin/users">Users</a>
+                            <a href="/admin/users"><%= t('Users') %></a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);">Merchants</a>
+                            <a href="javascript:void(0);"><%= t('Merchants') %></a>
                         </li>
                         
                     </ul>
