@@ -26,4 +26,6 @@ router.get('/deleteRecord', ensureAuthenticated, commonController.deleteRecord);
 router.get('/changeStatus', ensureAuthenticated, commonController.changeStatus);
 router.get('/changeLanguage', commonController.changeLanguage);
 
+router.get('/chat', commonController.chat);
+
 module.exports = router;

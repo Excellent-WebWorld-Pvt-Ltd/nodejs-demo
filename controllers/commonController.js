@@ -16,6 +16,7 @@ class CommonController
     const result = await utilsChangeStatus(req, model, id, 'status', status);
     res.json(result);
   }
+
   static async changeLanguage(req, res) 
   {
     const { lng } = req.query;
@@ -24,6 +25,15 @@ class CommonController
       return res.redirect(req.headers.referer);
     }
     return res.redirect('/'); // Fallback redirect if referer is not available
+  }
+
+  static chat(req, res) 
+  {
+    res.render('chat', {
+      t: req.t,
+      lng: req.session.lng || 'en',
+      appName: process.env.APP_NAME
+    });
   }
 }
 
