@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const passport = require('passport');
+require('dotenv').config();
 
 class AuthController {
   static login(req, res) {
@@ -8,7 +9,8 @@ class AuthController {
       error: null,
       oldInput: { email: '' },
       t: req.t,
-      lng: req.session.lng || 'en'
+      lng: req.session.lng || 'en',
+      appName: process.env.APP_NAME
     });
   }
 
@@ -26,7 +28,8 @@ class AuthController {
         error: null,
         oldInput: { email: req.body.email },
         t: req.t,
-        lng: req.session.lng || 'en'
+        lng: req.session.lng || 'en',
+        appName: process.env.APP_NAME
       });
     }
 
@@ -38,8 +41,9 @@ class AuthController {
           errors: {},
           error: info.message,
           oldInput: { email: req.body.email },
-           t: req.t,
-           lng: req.session.lng || 'en'
+          t: req.t,
+          lng: req.session.lng || 'en',
+          appName: process.env.APP_NAME
         });
       }
 
